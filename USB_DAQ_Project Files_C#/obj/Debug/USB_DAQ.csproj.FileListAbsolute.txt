@@ -1,0 +1,18 @@
+C:\Users\Michael\Desktop\Coleman Lab\DAQ Stuff\USB MCCDAQ\DAQ\C#\ULAI06\bin\Debug\ULAI06.exe
+C:\Users\Michael\Desktop\Coleman Lab\DAQ Stuff\USB MCCDAQ\DAQ\C#\ULAI06\bin\Debug\ULAI06.pdb
+C:\Users\Michael\Desktop\Coleman Lab\DAQ Stuff\USB MCCDAQ\DAQ\C#\ULAI06\obj\Debug\USB_DAQ.csprojResolveAssemblyReference.cache
+C:\Users\Michael\Desktop\Coleman Lab\DAQ Stuff\USB MCCDAQ\DAQ\C#\ULAI06\obj\Debug\ULAI06.frmStatusDisplay.resources
+C:\Users\Michael\Desktop\Coleman Lab\DAQ Stuff\USB MCCDAQ\DAQ\C#\ULAI06\obj\Debug\USB_DAQ.csproj.GenerateResource.Cache
+C:\Users\Michael\Desktop\Coleman Lab\DAQ Stuff\USB MCCDAQ\DAQ\C#\ULAI06\obj\Debug\ULAI06.exe
+C:\Users\Michael\Desktop\Coleman Lab\DAQ Stuff\USB MCCDAQ\DAQ\C#\ULAI06\obj\Debug\ULAI06.pdb
+C:\Users\Michael\Desktop\USB_DAQ\obj\Debug\ULAI06.exe
+C:\Users\Michael\Desktop\USB_DAQ\obj\Debug\ULAI06.pdb
+C:\Users\Michael\Desktop\USB_DAQ\bin\Debug\ULAI06.exe
+C:\Users\Michael\Desktop\USB_DAQ\bin\Debug\ULAI06.pdb
+C:\Users\Michael\Desktop\USB_DAQ\obj\Debug\USB_DAQ.csprojResolveAssemblyReference.cache
+C:\Users\Michael\Desktop\USB_DAQ\obj\Debug\ULAI06.frmStatusDisplay.resources
+C:\Users\Michael\Desktop\USB_DAQ\obj\Debug\USB_DAQ.csproj.GenerateResource.Cache
+C:\Users\Michael\Desktop\USB_DAQ\bin\Debug\ULAI06.exe.config
+C:\Users\Michael\Desktop\#eric\Coding\USB_DAQ_Recent\USB_DAQ_Project Files_C#\bin\Debug\ULAI06.exe.config
+C:\Users\Michael\Desktop\#eric\Coding\USB_DAQ_Recent\USB_DAQ_Project Files_C#\obj\Debug\ULAI06.exe
+C:\Users\Michael\Desktop\#eric\Coding\USB_DAQ_Recent\USB_DAQ_Project Files_C#\obj\Debug\ULAI06.pdb
