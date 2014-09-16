@@ -15,11 +15,22 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    ULAI06.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    cbw.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     Resources.qrc
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lcbw32
+win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lcbw32
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lcbw64
+win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lcbw64
+
+INCLUDEPATH += $$PWD/
+DEPENDPATH += $$PWD/
