@@ -37,5 +37,5 @@ Icon
 .Trashes
 
 # Gui Files
-NeuroGui/NeuroGui.pro
-NeuroGui/NeuroGui.pro.user
+.pro
+.pro.user
