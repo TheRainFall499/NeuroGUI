@@ -6,7 +6,7 @@
 
 CONFIG += qwt
 
-QT       += core gui
+QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,11 +17,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     ULAI06.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS += mainwindow.h \
     cbw.h \
     ULAI06.h
 
-FORMS    += mainwindow.ui
+FORMS += mainwindow.ui
 
 RESOURCES += \
     Resources.qrc

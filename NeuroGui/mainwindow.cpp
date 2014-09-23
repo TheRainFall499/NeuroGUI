@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), ui->spinBox, SLOT(setValue(int)));
     connect(ui->spinBox, SIGNAL(valueChanged(int)), ui->horizontalSlider, SLOT(setValue(int)));
 
-    ui->pushButton->setText("Start");
-    ui->pushButton_2->setText("Stop");
+    ui->startButton->setText("Start");
+    ui->stopButton->setText("Stop");
 }
 
 MainWindow::~MainWindow()
