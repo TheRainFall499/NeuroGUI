@@ -37,5 +37,5 @@ Icon
 .Trashes
 
 # Gui Files
-.pro
-.pro.user
+*.pro
+*.pro.user
