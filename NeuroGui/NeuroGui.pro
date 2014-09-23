@@ -13,18 +13,28 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = NeuroGui
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
         mainwindow.cpp \
     ULAI06.cpp
 
 HEADERS  += mainwindow.h \
-    cbw.h
+    cbw.h \
+    ULAI06.h
 
 FORMS    += mainwindow.ui
 
 RESOURCES += \
     Resources.qrc
+
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbi_cal.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbi_node.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbi_prop.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbi_test.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbw32.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\DaqDevInfo.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\DaqLib.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\MccDaq.dll"
+LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\MccSktsIfc.dll"
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lcbw32
 win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lcbw32

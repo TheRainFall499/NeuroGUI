@@ -1,54 +1,7 @@
-/*ULAI06.C****************************************************************
+#include "ULAI06.h"
 
-File:                         ULAI06.C
-
-Library Call Demonstrated:    cbAInScan(), continuous BACKGROUND mode
-
-Purpose:                      Scans a range of A/D Input Channels
-                              in the background.
-
-Demonstration:                Continuously collect data on Channel 0
-                              until a key is pressed.
-
-Other Library Calls:          cbGetStatus()
-                              cbStopBackground()
-                              cbErrHandling()
-
-Special Requirements:         Board 0 must have an A/D converter.
-                              Analog signals on an input channel.
-
-
-Copyright (c) 1995-2002, Measurement Computing Corp.
-All Rights Reserved.
-***************************************************************************/
-
-
-/* Include files */
-#include <windows.h>
-#include <stdio.h>
-#include <conio.h>
-#include "cbw.h"
-
-//added from main.cpp file
-#include "mainwindow.h"
-#include <QApplication>
-
-
-/* Prototypes */
-void ClearScreen (void);
-void GetTextCursor (int *x, int *y);
-void MoveCursor (int x, int y);
-
-
-//changed return type to int and added arguments (return type was previously void)
-int main (int argc, char *argv[])
-    {
-    //added from main.cpp file
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec(); //terminates the program
-
+void Test::DisplayData()
+{
     /* Variable Declarations */
     int Row, Col;
     int BoardNum = 0;
@@ -91,21 +44,21 @@ int main (int argc, char *argv[])
 
     /*  set aside memory to hold data */
     if(HighResAD)
-        {
+    {
         MemHandle = cbWinBufAlloc32(Count);
         ADData32 = (DWORD*) MemHandle;
-        }
+    }
     else
-        {
+    {
         MemHandle = cbWinBufAlloc(Count);
         ADData = (WORD*) MemHandle;
-        }
+    }
 
     if (!MemHandle)    /* Make sure it is a valid pointer */
-        {
+    {
         printf("\nout of memory\n");
         exit(1);
-        }
+    }
 
     /* set up the display screen */
     ClearScreen();
@@ -137,7 +90,7 @@ int main (int argc, char *argv[])
 
     /* During the BACKGROUND operation, check the status */
     while (!kbhit() && Status==RUNNING)
-        {
+    {
         /* Check the status of the current background operation
         Parameters:
             BoardNum  :the number used by CB.CFG to describe this board
@@ -149,15 +102,15 @@ int main (int argc, char *argv[])
 
         /* check the current status of the background operation */
         if ((Status == RUNNING) && CurCount > 0)
-            {
+        {
             MoveCursor (Col, Row);
             printf ("Data point: %3ld   ", CurIndex);
             if(HighResAD)
                 printf ("  Value: %d  ",ADData32[CurIndex]);
             else
                 printf ("  Value: %d  ",ADData[CurIndex]);
-            }
         }
+    }
     printf ("\n");
     MoveCursor (Col, Row + 2);
     printf ("Data collection terminated.");
@@ -171,7 +124,7 @@ int main (int argc, char *argv[])
     cbWinBufFree(MemHandle);
     MoveCursor (1, 22);
     printf ("\n");
-    }
+}
 
 
 
@@ -188,8 +141,7 @@ int main (int argc, char *argv[])
 
 #define BIOS_VIDEO   0x10
 
-void
-ClearScreen (void)
+void Test::ClearScreen()
 {
     COORD coordOrg = {0, 0};
     DWORD dwWritten = 0;
@@ -214,8 +166,7 @@ ClearScreen (void)
 ***************************************************************************/
 
 
-void
-MoveCursor (int x, int y)
+void Test::MoveCursor(int x, int y)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -241,8 +192,7 @@ MoveCursor (int x, int y)
 *
 ***************************************************************************/
 
-void
-GetTextCursor (int *x, int *y)
+void Test::GetTextCursor(int *x, int *y)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi;
@@ -258,5 +208,3 @@ GetTextCursor (int *x, int *y)
 
     return;
 }
-
-
