@@ -1,9 +1,9 @@
 #ifndef ULAI06_H
 #define ULAI06_H
 
-/*ULAI06.C****************************************************************
+/*ULAI06.H****************************************************************
 
-File:                         ULAI06.C
+File:                         ULAI06.H
 
 Library Call Demonstrated:    cbAInScan(), continuous BACKGROUND mode
 
@@ -36,12 +36,12 @@ All Rights Reserved.
 class Test {
 
 public:
-    void DisplayData();
+    void DisplayData();                 // Prints the value at every data point collected
 
 private:
-    void ClearScreen();
-    void GetTextCursor(int *x, int *y);
-    void MoveCursor(int x, int y);
+    void ClearScreen();                 // Clears the screen
+    void MoveCursor(int x, int y);      // Positions the cursor on screen
+    void GetTextCursor(int *x, int *y); // Returns the current (text) cursor position
 
 };
 
