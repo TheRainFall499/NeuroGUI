@@ -38,4 +38,4 @@ Icon
 
 # Gui Files
 *.pro
-*.pro.user
+*.user
