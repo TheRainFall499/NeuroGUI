@@ -18,9 +18,9 @@ void Test::DisplayData()
     WORD *ADData;
     DWORD *ADData32;
     unsigned Options;
-    float     revision = (float)CURRENTREVNUM;
+    float revision = (float)CURRENTREVNUM;
     BOOL HighResAD = FALSE;
-    int  ADRes;
+    int ADRes;
 
    /* Declare Revision level of the Universal Library */
     ULStat = cbDeclareRevision(&revision);
@@ -106,9 +106,9 @@ void Test::DisplayData()
             MoveCursor (Col, Row);
             printf ("Data point: %3ld   ", CurIndex);
             if(HighResAD)
-                printf ("  Value: %d  ",ADData32[CurIndex]);
+                printf ("  Value: %lu  ",ADData32[CurIndex]);
             else
-                printf ("  Value: %d  ",ADData[CurIndex]);
+                printf ("  Value: %hu  ",ADData[CurIndex]);
         }
     }
     printf ("\n");

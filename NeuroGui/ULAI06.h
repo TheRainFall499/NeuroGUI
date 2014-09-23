@@ -36,12 +36,12 @@ All Rights Reserved.
 class Test {
 
 public:
-    void DisplayData ();
+    void DisplayData();
 
 private:
-    void ClearScreen ();
-    void GetTextCursor (int *x, int *y);
-    void MoveCursor (int x, int y);
+    void ClearScreen();
+    void GetTextCursor(int *x, int *y);
+    void MoveCursor(int x, int y);
 
 };
 
