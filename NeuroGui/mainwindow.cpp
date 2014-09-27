@@ -30,7 +30,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-Test *test = new Test();
+BackgroundOperation *test = new BackgroundOperation();
 int Row, Col;
 int BoardNum = 0;
 int ULStat = 0;

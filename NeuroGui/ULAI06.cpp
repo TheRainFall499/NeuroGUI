@@ -1,6 +1,6 @@
 #include "ULAI06.h"
 
-void Test::DisplayData()
+void BackgroundOperation::DisplayData()
 {
     /* Variable Declarations */
     int Row, Col;
@@ -141,7 +141,7 @@ void Test::DisplayData()
 
 #define BIOS_VIDEO   0x10
 
-void Test::ClearScreen()
+void BackgroundOperation::ClearScreen()
 {
     COORD coordOrg = {0, 0};
     DWORD dwWritten = 0;
@@ -166,7 +166,7 @@ void Test::ClearScreen()
 ***************************************************************************/
 
 
-void Test::MoveCursor(int x, int y)
+void BackgroundOperation::MoveCursor(int x, int y)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -192,7 +192,7 @@ void Test::MoveCursor(int x, int y)
 *
 ***************************************************************************/
 
-void Test::GetTextCursor(int *x, int *y)
+void BackgroundOperation::GetTextCursor(int *x, int *y)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_SCREEN_BUFFER_INFO csbi;

@@ -33,7 +33,7 @@ All Rights Reserved.
 #include "cbw.h"
 
 
-class Test {
+class BackgroundOperation {
 
 public:
     void DisplayData();                 // Prints the value at every data point collected
