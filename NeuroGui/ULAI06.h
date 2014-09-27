@@ -37,8 +37,6 @@ class Test {
 
 public:
     void DisplayData();                 // Prints the value at every data point collected
-
-private:
     void ClearScreen();                 // Clears the screen
     void MoveCursor(int x, int y);      // Positions the cursor on screen
     void GetTextCursor(int *x, int *y); // Returns the current (text) cursor position
