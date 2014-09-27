@@ -11,6 +11,7 @@ QT += core gui
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = NeuroGui
+
 TEMPLATE = app
 
 SOURCES += main.cpp\
@@ -26,6 +27,7 @@ FORMS += mainwindow.ui
 RESOURCES += \
     Resources.qrc
 
+# Enter your own file paths here
 LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbi_cal.dll"
 LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbi_node.dll"
 LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\cbi_prop.dll"
@@ -38,7 +40,6 @@ LIBS += "C:\Qt\Tools\QtCreator\test\QT_USBDAQ_Project\NeuroGui\MccSktsIfc.dll"
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lcbw32
 win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lcbw32
-
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lcbw64
 win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lcbw64
 
