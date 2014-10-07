@@ -30,28 +30,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-BackgroundOperation *test = new BackgroundOperation();
-int Row, Col;
-int BoardNum = 0;
-int ULStat = 0;
-short Status = RUNNING;
-HANDLE MemHandle = 0;
-
 void MainWindow::on_startButton_clicked()
 {
+    BackgroundOperation *test = new BackgroundOperation();
+
     /* Variable Declarations */
-    //int Row, Col;
-    //int BoardNum = 0;
-    //int ULStat = 0;
+    int Row, Col;
+    int BoardNum = 0;
+    int ULStat = 0;
     int LowChan = 0;
     int HighChan = 0;
     int Gain = BIP5VOLTS;
-    //short Status = RUNNING;
+    short Status = RUNNING;
     long CurCount;
     long CurIndex;
     long Count = 10000;
     long Rate = 390;
-    //HANDLE MemHandle = 0;
+    HANDLE MemHandle = 0;
     WORD *ADData;
     DWORD *ADData32;
     unsigned Options;
@@ -150,8 +145,23 @@ void MainWindow::on_startButton_clicked()
                 printf ("  Value: %hu  ",ADData[CurIndex]);
                 emit shortDataValueChanged(ADData[CurIndex]);
             }
+
+            Status = IDLE; // using to test if first value appears on gui
         }
     }
+    //printf ("\n");
+    test->MoveCursor (Col, Row + 2);
+    //printf ("Data collection terminated.");
+
+    /* The BACKGROUND operation must be explicitly stopped
+        Parameters:
+             BoardNum    :the number used by CB.CFG to describe this board
+             FunctionType: A/D operation (AIFUNCTIOM)*/
+    ULStat = cbStopBackground (BoardNum,AIFUNCTION);
+
+    cbWinBufFree(MemHandle);
+    test->MoveCursor (1, 22);
+    //printf ("\n");
 }
 
 void MainWindow::displayDataPoint(long dataPoint) {
@@ -168,19 +178,5 @@ void MainWindow::displayShortDataValue(unsigned short shortDataValue) {
 
 void MainWindow::on_stopButton_clicked()
 {
-    Status = IDLE;
-
-    //printf ("\n");
-    test->MoveCursor (Col, Row + 2);
-    //printf ("Data collection terminated.");
-
-    /* The BACKGROUND operation must be explicitly stopped
-        Parameters:
-             BoardNum    :the number used by CB.CFG to describe this board
-             FunctionType: A/D operation (AIFUNCTIOM)*/
-    ULStat = cbStopBackground (BoardNum,AIFUNCTION);
-
-    cbWinBufFree(MemHandle);
-    test->MoveCursor (1, 22);
-    //printf ("\n");
+    exit(1); // exits background operation and exits gui application
 }

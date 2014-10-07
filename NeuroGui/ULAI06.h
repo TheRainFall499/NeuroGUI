@@ -1,9 +1,9 @@
 #ifndef ULAI06_H
 #define ULAI06_H
 
-/*ULAI06.H****************************************************************
+/*ULAI06.C****************************************************************
 
-File:                         ULAI06.H
+File:                         ULAI06.C
 
 Library Call Demonstrated:    cbAInScan(), continuous BACKGROUND mode
 
