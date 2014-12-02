@@ -15,12 +15,10 @@ TARGET = NeuroGui
 TEMPLATE = app
 
 SOURCES += main.cpp\
-        mainwindow.cpp \
-    ULAI06.cpp
+        mainwindow.cpp
 
 HEADERS += mainwindow.h \
-    cbw.h \
-    ULAI06.h
+    cbw.h
 
 FORMS += mainwindow.ui
 

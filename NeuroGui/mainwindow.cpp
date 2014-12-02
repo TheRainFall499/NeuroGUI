@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "ULAI06.h"
+#include "cbw.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,15 +14,20 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->spinBox->setMaximum(8);
     ui->spinBox->setMinimum(0);
 
-    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), ui->spinBox, SLOT(setValue(int)));
-    connect(ui->spinBox, SIGNAL(valueChanged(int)), ui->horizontalSlider, SLOT(setValue(int)));
+    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)),
+            ui->spinBox, SLOT(setValue(int)));
+    connect(ui->spinBox, SIGNAL(valueChanged(int)),
+            ui->horizontalSlider, SLOT(setValue(int)));
 
     ui->startButton->setText("Start");
     ui->stopButton->setText("Stop");
 
-    connect(this, SIGNAL(dataPointChanged(long)), this, SLOT(displayDataPoint(long)));
-    connect(this, SIGNAL(longDataValueChanged(unsigned long)), this, SLOT(displayLongDataValue(unsigned long)));
-    connect(this, SIGNAL(shortDataValueChanged(unsigned short)), this, SLOT(displayShortDataValue(unsigned short)));
+    connect(this, SIGNAL(dataPointChanged(long)),
+            this, SLOT(displayDataPoint(long)));
+    connect(this, SIGNAL(longDataValueChanged(unsigned long)),
+            this, SLOT(displayLongDataValue(unsigned long)));
+    connect(this, SIGNAL(shortDataValueChanged(unsigned short)),
+            this, SLOT(displayShortDataValue(unsigned short)));
 }
 
 MainWindow::~MainWindow()
@@ -32,10 +37,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startButton_clicked()
 {
-    BackgroundOperation *test = new BackgroundOperation();
-
     /* Variable Declarations */
-    int Row, Col;
     int BoardNum = 0;
     int ULStat = 0;
     int LowChan = 0;
@@ -86,17 +88,13 @@ void MainWindow::on_startButton_clicked()
         ADData = (WORD*) MemHandle;
     }
 
-    if (!MemHandle)    /* Make sure it is a valid pointer */
-    {
-        //printf("\nout of memory\n");
-        exit(1);
-    }
+    /* Make sure it is a valid pointer */
+    if (!MemHandle)
+        exit(1); /* out of memory */
 
     /* set up the display screen */
-    test->ClearScreen();
-    //printf ("Demonstration of cbAInScan()\n\n");
-    //printf ("Data are being collected in the BACKGROUND, CONTINUOUSLY\n");
-
+    /* Demonstration of cbAInScan() */
+    /* Data are being collected in the BACKGROUND, CONTINUOUSLY */
 
     /* Collect the values with cbAInScan() in BACKGROUND mode, CONTINUOUSLY
         Parameters:
@@ -112,16 +110,10 @@ void MainWindow::on_startButton_clicked()
     ULStat = cbAInScan (BoardNum, LowChan, HighChan, Count, &Rate, Gain,
                         MemHandle, Options);
 
-    //printf ("--------------------------------------------------------------------------------");
-    //printf ("| Your program could be doing something useful here while data are collected...|");
-    //printf ("--------------------------------------------------------------------------------");
-    //printf ("\nCollecting data...\n\n");
-    //printf ("Press any key to quit.\n\n");
-
-    test->GetTextCursor (&Col, &Row);
+    /* Your program could be doing something useful here while data are collected */
 
     /* During the BACKGROUND operation, check the status */
-    while (!kbhit() && Status==RUNNING)
+    while (Status==RUNNING)
     {
         qApp->processEvents();
         /* Check the status of the current background operation
@@ -136,23 +128,14 @@ void MainWindow::on_startButton_clicked()
 
         if ((Status == RUNNING) && CurCount > 0)
         {
-            test->MoveCursor (Col, Row);
-            //printf ("Data point: %3ld   ", CurIndex);
             emit dataPointChanged(CurIndex);
-            if(HighResAD) {
-                //printf ("  Value: %lu  ",ADData32[CurIndex]);
+            if(HighResAD)
                 emit longDataValueChanged(ADData32[CurIndex]);
-            }
-            else {
-                //printf ("  Value: %hu  ",ADData[CurIndex]);
+            else
                 emit shortDataValueChanged(ADData[CurIndex]);
-            }
         }
-
     }
-    //printf ("\n");
-    test->MoveCursor (Col, Row + 2);
-    //printf ("Data collection terminated.");
+    /* Data collection terminated */
 
     /* The BACKGROUND operation must be explicitly stopped
         Parameters:
@@ -161,19 +144,20 @@ void MainWindow::on_startButton_clicked()
     ULStat = cbStopBackground (BoardNum,AIFUNCTION);
 
     cbWinBufFree(MemHandle);
-    test->MoveCursor (1, 22);
-    //printf ("\n");
 }
 
-void MainWindow::displayDataPoint(long dataPoint) {
+void MainWindow::displayDataPoint(long dataPoint)
+{
     ui->dataPointLabel->setText("Data point: " + QString::number(dataPoint));
 }
 
-void MainWindow::displayLongDataValue(unsigned long longDataValue) {
+void MainWindow::displayLongDataValue(unsigned long longDataValue)
+{
     ui->dataValueLabel->setText("Data value: " + QString::number(longDataValue));
 }
 
-void MainWindow::displayShortDataValue(unsigned short shortDataValue) {
+void MainWindow::displayShortDataValue(unsigned short shortDataValue)
+{
     ui->dataValueLabel->setText("Data value: " + QString::number(shortDataValue));
 }
 

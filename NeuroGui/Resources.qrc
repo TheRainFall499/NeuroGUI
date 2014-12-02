@@ -4,4 +4,7 @@
         <file>new.png</file>
         <file>open.png</file>
     </qresource>
+    <qresource prefix="/Examples">
+        <file>ULAI06.C</file>
+    </qresource>
 </RCC>
