@@ -123,6 +123,7 @@ void MainWindow::on_startButton_clicked()
     /* During the BACKGROUND operation, check the status */
     while (!kbhit() && Status==RUNNING)
     {
+        qApp->processEvents();
         /* Check the status of the current background operation
         Parameters:
             BoardNum  :the number used by CB.CFG to describe this board
@@ -132,22 +133,22 @@ void MainWindow::on_startButton_clicked()
             FunctionType: A/D operation (AIFUNCTIOM)*/
         ULStat = cbGetStatus (BoardNum, &Status, &CurCount, &CurIndex,AIFUNCTION);
         /* check the current status of the background operation */
+
         if ((Status == RUNNING) && CurCount > 0)
         {
             test->MoveCursor (Col, Row);
-            printf ("Data point: %3ld   ", CurIndex); //
+            //printf ("Data point: %3ld   ", CurIndex);
             emit dataPointChanged(CurIndex);
             if(HighResAD) {
-                printf ("  Value: %lu  ",ADData32[CurIndex]);
+                //printf ("  Value: %lu  ",ADData32[CurIndex]);
                 emit longDataValueChanged(ADData32[CurIndex]);
             }
             else {
-                printf ("  Value: %hu  ",ADData[CurIndex]);
+                //printf ("  Value: %hu  ",ADData[CurIndex]);
                 emit shortDataValueChanged(ADData[CurIndex]);
             }
-
-            Status = IDLE; // using to test if first value appears on gui
         }
+
     }
     //printf ("\n");
     test->MoveCursor (Col, Row + 2);
