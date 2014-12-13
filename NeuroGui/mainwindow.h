@@ -17,13 +17,13 @@ public:
 
 signals:
     void dataPointChanged(long);
-    void floatDataValueChanged(float);
+    void dataValueChanged(float);
 
 private slots:
     void on_startButton_clicked();
     void on_stopButton_clicked();
     void displayDataPoint(long);
-    void displayFloatDataValue(float);
+    void displayDataValue(float);
 
 private:
     Ui::MainWindow *ui;

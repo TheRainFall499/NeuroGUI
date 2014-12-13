@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "cbw.h"
-#include <iostream>
-#include <typeinfo>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,8 +24,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(this, SIGNAL(dataPointChanged(long)),
             this, SLOT(displayDataPoint(long)));
-    connect(this, SIGNAL(floatDataValueChanged(float)),
-            this, SLOT(displayFloatDataValue(float)));
+    connect(this, SIGNAL(dataValueChanged(float)),
+            this, SLOT(displayDataValue(float)));
 }
 
 MainWindow::~MainWindow()
@@ -96,7 +94,7 @@ void MainWindow::on_startButton_clicked()
                         MemHandle, Options);
 
     /* Your program could be doing something useful here while data are collected */
-
+    float *EngUnits;
     /* During the BACKGROUND operation, check the status */
     while (Status == RUNNING)
     {
@@ -110,12 +108,11 @@ void MainWindow::on_startButton_clicked()
             FunctionType: A/D operation (AIFUNCTIOM)*/
         ULStat = cbGetStatus (BoardNum, &Status, &CurCount, &CurIndex, AIFUNCTION);
         /* check the current status of the background operation */
-        float *EngUnits;
         if ((Status == RUNNING) && CurCount > 0)
         {
             emit dataPointChanged(CurIndex);
             cbToEngUnits(BoardNum, Gain, ADData[CurIndex], EngUnits);
-            emit floatDataValueChanged(*EngUnits);
+            emit dataValueChanged(*EngUnits);
         }
     }
     /* Data collection terminated */
@@ -134,8 +131,8 @@ void MainWindow::displayDataPoint(long dataPoint)
     ui->dataPointLabel->setText("Data point: " + QString::number(dataPoint));
 }
 
-void MainWindow::displayFloatDataValue(float floatDataValue) {
-    ui->dataValueLabel->setText("Data value: " + QString::number(floatDataValue, 'g', 6));
+void MainWindow::displayDataValue(float dataValue) {
+    ui->dataValueLabel->setText("Data value: " + QString::number(dataValue, 'g', 6));
 }
 
 void MainWindow::on_stopButton_clicked()
