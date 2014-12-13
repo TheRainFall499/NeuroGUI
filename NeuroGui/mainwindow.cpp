@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "cbw.h"
+#include <iostream>
+#include <typeinfo>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -24,10 +26,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(this, SIGNAL(dataPointChanged(long)),
             this, SLOT(displayDataPoint(long)));
-    connect(this, SIGNAL(longDataValueChanged(unsigned long)),
-            this, SLOT(displayLongDataValue(unsigned long)));
-    connect(this, SIGNAL(shortDataValueChanged(unsigned short)),
-            this, SLOT(displayShortDataValue(unsigned short)));
+    connect(this, SIGNAL(floatDataValueChanged(float)),
+            this, SLOT(displayFloatDataValue(float)));
 }
 
 MainWindow::~MainWindow()
@@ -50,10 +50,8 @@ void MainWindow::on_startButton_clicked()
     long Rate = 390;
     HANDLE MemHandle = 0;
     WORD *ADData;
-    DWORD *ADData32;
     unsigned Options;
-    float revision = (float)CURRENTREVNUM;
-    BOOL HighResAD = FALSE;
+    float revision = (float) CURRENTREVNUM;
     int ADRes;
 
    /* Declare Revision level of the Universal Library */
@@ -71,22 +69,9 @@ void MainWindow::on_startButton_clicked()
     /* Get the resolution of A/D */
     cbGetConfig(BOARDINFO, BoardNum, 0, BIADRES, &ADRes);
 
-    /* check If the resolution of A/D is higher than 16 bit.
-       If it is, then the A/D is high resolution. */
-    if(ADRes > 16)
-        HighResAD = TRUE;
-
     /*  set aside memory to hold data */
-    if(HighResAD)
-    {
-        MemHandle = cbWinBufAlloc32(Count);
-        ADData32 = (DWORD*) MemHandle;
-    }
-    else
-    {
-        MemHandle = cbWinBufAlloc(Count);
-        ADData = (WORD*) MemHandle;
-    }
+    MemHandle = cbWinBufAlloc(Count);
+    ADData = (WORD*) MemHandle;
 
     /* Make sure it is a valid pointer */
     if (!MemHandle)
@@ -113,7 +98,7 @@ void MainWindow::on_startButton_clicked()
     /* Your program could be doing something useful here while data are collected */
 
     /* During the BACKGROUND operation, check the status */
-    while (Status==RUNNING)
+    while (Status == RUNNING)
     {
         qApp->processEvents();
         /* Check the status of the current background operation
@@ -123,16 +108,14 @@ void MainWindow::on_startButton_clicked()
             CurCount  :current number of samples collected
             CurIndex  :index to the last data value transferred
             FunctionType: A/D operation (AIFUNCTIOM)*/
-        ULStat = cbGetStatus (BoardNum, &Status, &CurCount, &CurIndex,AIFUNCTION);
+        ULStat = cbGetStatus (BoardNum, &Status, &CurCount, &CurIndex, AIFUNCTION);
         /* check the current status of the background operation */
-
+        float *EngUnits;
         if ((Status == RUNNING) && CurCount > 0)
         {
             emit dataPointChanged(CurIndex);
-            if(HighResAD)
-                emit longDataValueChanged(ADData32[CurIndex]);
-            else
-                emit shortDataValueChanged(ADData[CurIndex]);
+            cbToEngUnits(BoardNum, Gain, ADData[CurIndex], EngUnits);
+            emit floatDataValueChanged(*EngUnits);
         }
     }
     /* Data collection terminated */
@@ -141,7 +124,7 @@ void MainWindow::on_startButton_clicked()
         Parameters:
              BoardNum    :the number used by CB.CFG to describe this board
              FunctionType: A/D operation (AIFUNCTIOM)*/
-    ULStat = cbStopBackground (BoardNum,AIFUNCTION);
+    ULStat = cbStopBackground (BoardNum, AIFUNCTION);
 
     cbWinBufFree(MemHandle);
 }
@@ -151,17 +134,14 @@ void MainWindow::displayDataPoint(long dataPoint)
     ui->dataPointLabel->setText("Data point: " + QString::number(dataPoint));
 }
 
-void MainWindow::displayLongDataValue(unsigned long longDataValue)
-{
-    ui->dataValueLabel->setText("Data value: " + QString::number(longDataValue));
-}
-
-void MainWindow::displayShortDataValue(unsigned short shortDataValue)
-{
-    ui->dataValueLabel->setText("Data value: " + QString::number(shortDataValue));
+void MainWindow::displayFloatDataValue(float floatDataValue) {
+    ui->dataValueLabel->setText("Data value: " + QString::number(floatDataValue, 'g', 6));
 }
 
 void MainWindow::on_stopButton_clicked()
 {
-    exit(1); // exits background operation and exits gui application
+    //ULStat = cbStopBackground (BoardNum, AIFUNCTION);
+    //cbWinBufFree(MemHandle);
+
+    exit(1); // exits gui application
 }
