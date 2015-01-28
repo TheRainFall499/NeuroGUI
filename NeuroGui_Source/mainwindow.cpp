@@ -250,7 +250,6 @@ void MainWindow::on_startButton_clicked()
         qDebug() << "HighChan:" << HighChan;
         ULStat = cbAInScan (BoardNum, LowChan, HighChan, Count, &Rate, Gain, MemHandle, Options);
         //ULStat = cbSetTrigger(0, GATEHIGH,0.1,4.5);
-
         samplingThread.start();
         qDebug() << "SamplingThread Started";
     }

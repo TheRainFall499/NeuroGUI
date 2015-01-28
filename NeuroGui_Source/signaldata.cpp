@@ -486,17 +486,17 @@ void SignalData::clearStaleValues( double limit )
         d_data1->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data1->values;
         d_data1->values.clear();
-        d_data1->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data1->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data1->append( values[index++] );
+//        d_data1->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data1->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data1->append( values[index++] );
         d_data1->lock.unlock();
     }
     if (channels >=2)
@@ -505,17 +505,17 @@ void SignalData::clearStaleValues( double limit )
         d_data2->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data2->values;
         d_data2->values.clear();
-        d_data2->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data2->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data2->append( values[index++] );
+//        d_data2->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data2->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data2->append( values[index++] );
         d_data2->lock.unlock();
     }
     if (channels >= 3)
@@ -524,17 +524,17 @@ void SignalData::clearStaleValues( double limit )
         d_data3->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data3->values;
         d_data3->values.clear();
-        d_data3->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data3->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data3->append( values[index++] );
+//        d_data3->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data3->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data3->append( values[index++] );
         d_data3->lock.unlock();
     }
     if (channels >= 4)
@@ -543,17 +543,17 @@ void SignalData::clearStaleValues( double limit )
         d_data4->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data4->values;
         d_data4->values.clear();
-        d_data4->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data4->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data4->append( values[index++] );
+//        d_data4->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data4->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data4->append( values[index++] );
         d_data4->lock.unlock();
     }
     if (channels >= 5)
@@ -562,17 +562,17 @@ void SignalData::clearStaleValues( double limit )
         d_data5->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data5->values;
         d_data5->values.clear();
-        d_data5->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data5->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data5->append( values[index++] );
+//        d_data5->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data5->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data5->append( values[index++] );
         d_data5->lock.unlock();
     }
     if (channels >= 6)
@@ -581,17 +581,17 @@ void SignalData::clearStaleValues( double limit )
         d_data6->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data6->values;
         d_data6->values.clear();
-        d_data6->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data6->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data6->append( values[index++] );
+//        d_data6->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data6->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data6->append( values[index++] );
         d_data6->lock.unlock();
     }
     if (channels >= 7)
@@ -600,17 +600,17 @@ void SignalData::clearStaleValues( double limit )
         d_data7->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data7->values;
         d_data7->values.clear();
-        d_data7->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data7->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data7->append( values[index++] );
+//        d_data7->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data7->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data7->append( values[index++] );
         d_data7->lock.unlock();
     }
     if (channels == 8)
@@ -619,17 +619,17 @@ void SignalData::clearStaleValues( double limit )
         d_data8->boundingRect = QRectF( 1.0, 1.0, -2.0, -2.0 ); // invalid
         const QVector<QPointF> values = d_data8->values;
         d_data8->values.clear();
-        d_data8->values.reserve( values.size() );
-        int index;
-        for ( index = values.size() - 1; index >= 0; index-- )
-        {
-            if ( values[index].x() < limit )
-                break;
-        }
-        if ( index > 0 )
-            d_data8->append( values[index++] );
-        while ( index < values.size() - 1 )
-            d_data8->append( values[index++] );
+//        d_data8->values.reserve( values.size() );
+//        int index;
+//        for ( index = values.size() - 1; index >= 0; index-- )
+//        {
+//            if ( values[index].x() < limit )
+//                break;
+//        }
+//        if ( index > 0 )
+//            d_data8->append( values[index++] );
+//        while ( index < values.size() - 1 )
+//            d_data8->append( values[index++] );
         d_data8->lock.unlock();
     }
 }

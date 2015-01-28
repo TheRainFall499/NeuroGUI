@@ -9,8 +9,8 @@ class WriteDataThread : public QThread
 public:
 
 
-    void writedata(int halftowrite, bool stopwriting);
-    void run(int memhalftowrite,bool inputbool);
+    void writedata(int halftowrite, bool stopwriting, long memory_location);
+    void run(int memhalftowrite,bool inputbool,long mem_loc);
     void reset_blocks();
 
 private:

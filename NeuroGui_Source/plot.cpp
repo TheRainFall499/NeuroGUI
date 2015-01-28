@@ -222,7 +222,7 @@ Plot::~Plot()
 void Plot::start()
 {
     d_clock.start();
-    d_timerId = startTimer( 0.01 );
+    d_timerId = startTimer( 0.2 );
 }
 
 void Plot::replot()
@@ -625,6 +625,7 @@ if (channels == 8)
 
 void Plot::timerEvent( QTimerEvent *event )
 {
+    qDebug() << "PlotFired";
     if ( event->timerId() == d_timerId )
     {
         updateCurve();

@@ -59,13 +59,45 @@ double SamplingThread::amplitude() const
 
 void SamplingThread::flush_data()
 {
-    StopWriting=true;
-    PlotStarted=false;
-    qDebug() << "Buffer Flushed";
+    extern bool triggerchecked;
+    long CurCount = 10;
+    long CurIndex;
+    short Status = RUNNING;
+    int BoardNum = 0;
+    float v;
+    extern WORD *ADData;
+    extern int channels;
+    extern HANDLE MemHandle;
+    extern bool triggerchecked;
+    extern int globalrecfreq;
+
+    int ULStat = cbGetStatus (BoardNum, &Status, &CurCount, &CurIndex,AIFUNCTION);
+
+    if (triggerchecked == 1)
+    {
+        StopWriting=true;
+        PlotStarted=false;
+        qDebug() << "Buffer Flushed";
+    }
+    else
+    {
+        if (CurIndex < (channels*globalrecfreq))
+        {
+                //qDebug() << "writing 2";
+                datathread.run(2,true,CurCount);
+        }
+        else
+        {
+                //qDebug() << "writing 1";
+                datathread.run(1,true,CurCount);
+        }
+
+    }
 }
 
 void SamplingThread::sample( double elapsed )
 {
+    qDebug() << "SampleFired";
 //    const QPointF s( elapsed, 1 );
 //    SignalData::instance().append( s );
     long CurCount = 10;
@@ -89,8 +121,9 @@ void SamplingThread::sample( double elapsed )
     if (CurCount < rounder)
         PlotStarted = false;
 
-    //qDebug() << CurCount;
-    //qDebug() << PlotStarted;
+    qDebug() << CurCount;
+    qDebug() << PlotStarted;
+    qDebug() << triggerchecked;
     if ((CurCount>(rounder)) && (triggerchecked==true) && PlotStarted==false)
     {
         //qDebug() << "StartPlotting";
@@ -111,6 +144,7 @@ void SamplingThread::sample( double elapsed )
         starttime=elapsed;
     if ((Status == RUNNING) && CurCount > 20 )
     {
+        qDebug() << "Writing data files";
         for (int chantrack=1; (chantrack <= channels); chantrack++)
         {
             elapsed = elapsed-starttime;
@@ -132,8 +166,8 @@ void SamplingThread::sample( double elapsed )
                 WroteSecond = true;
             if (WroteSecond==false)
             {
-                qDebug() << "writing 2";
-                datathread.run(2,StopWriting);
+                //qDebug() << "writing 2";
+                datathread.run(2,StopWriting,CurCount);
                 WroteSecond=true;
             }
         }
@@ -145,8 +179,8 @@ void SamplingThread::sample( double elapsed )
                 WroteSecond = false;
             if (WroteFirst == false)
             {
-                qDebug() << "writing 1";
-                datathread.run(1,StopWriting);
+                //qDebug() << "writing 1";
+                datathread.run(1,StopWriting,CurCount);
 
                 WroteFirst=true;
             }
