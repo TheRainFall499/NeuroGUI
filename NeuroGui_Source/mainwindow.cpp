@@ -632,11 +632,26 @@ void MainWindow::on_stopButton_clicked()
 {
     int ULStat = cbStopBackground (0,AIFUNCTION);
 
-    cbWinBufFree(MemHandle);
-    samplingThread.flush_data();
+
+    //
     samplingThread.stop();
 
+    while (samplingThread.isRunning())
+    {
+        qDebug() << "waiting for samp thread to stop...";
+    }
+    qDebug() << "flushing data";
+    samplingThread.flush_data();
+    while (samplingThread.isRunning())
+    {
+        qDebug() << "waiting for samp thread to stop...";
+    }
+    qDebug() << "resetting trigger plot";
     samplingThread.settriggerplot(false);
+    while (samplingThread.isRunning())
+    {
+        qDebug() << "waiting for samp thread to stop...";
+    }
     if (!ui->savesettings->isChecked())
     {
         QSettings settings("ColemanLab","DAQCode");
@@ -655,6 +670,7 @@ void MainWindow::on_stopButton_clicked()
     }
 
     f.close();
+    cbWinBufFree(MemHandle);
 
     if (ui->onetext->isChecked())
     {

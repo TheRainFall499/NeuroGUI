@@ -27,7 +27,10 @@ SamplingThread::SamplingThread( QObject *parent ):
     PlotStarted=false;
     StopWriting=false;
 }
-
+SamplingThread::~SamplingThread()
+{
+    qDebug() << "killed timer";
+}
 void SamplingThread::setFrequency( double frequency )
 {
     d_frequency = frequency;
@@ -86,11 +89,11 @@ void SamplingThread::sample( double elapsed )
     if (CurCount < rounder)
         PlotStarted = false;
 
-    qDebug() << CurCount;
-    qDebug() << PlotStarted;
+    //qDebug() << CurCount;
+    //qDebug() << PlotStarted;
     if ((CurCount>(rounder)) && (triggerchecked==true) && PlotStarted==false)
     {
-        qDebug() << "StartPlotting";
+        //qDebug() << "StartPlotting";
         //qDebug() << CurCount;
         StartPlot=true;
         PlotStarted=true;

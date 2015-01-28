@@ -39,15 +39,15 @@ RESOURCES += \
     Resources.qrc
 
 # Enter your own file paths here
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\cbi_cal.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\cbi_node.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\cbi_prop.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\cbi_test.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\cbw32.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\DaqDevInfo.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\DaqLib.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\MccDaq.dll"
-LIBS += "C:\Users\Elijah\Desktop\New folder\NeuroGui\MccSktsIfc.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\cbi_cal.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\cbi_node.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\cbi_prop.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\cbi_test.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\cbw32.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\DaqDevInfo.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\DaqLib.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\MccDaq.dll"
+LIBS += "C:\Users\ericwayne\Desktop\NeuroGui_NewCode\NeuroGui\MccSktsIfc.dll"
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ -lcbw32
 win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ -lcbw32

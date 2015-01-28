@@ -8,7 +8,7 @@ class SamplingThread: public QwtSamplingThread
 
 public:
     SamplingThread( QObject *parent = NULL );
-
+    ~SamplingThread();
     double frequency() const;
     double amplitude() const;
     void settriggerplot(bool inputvalue);
