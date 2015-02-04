@@ -625,7 +625,7 @@ if (channels == 8)
 
 void Plot::timerEvent( QTimerEvent *event )
 {
-    qDebug() << "PlotFired";
+    //qDebug() << "PlotFired";
     if ( event->timerId() == d_timerId )
     {
         updateCurve();

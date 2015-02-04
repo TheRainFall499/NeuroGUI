@@ -27,6 +27,7 @@ void WriteDataThread::writedata(int halftowrite,bool stopwriting, long memory_lo
     {
         if (halftowrite==2)
         {
+            qDebug() << "Regular Write, 2nd Half";
             extern QFile f;
             QDataStream out(&f);
             out.setByteOrder(QDataStream::LittleEndian);
@@ -41,6 +42,7 @@ void WriteDataThread::writedata(int halftowrite,bool stopwriting, long memory_lo
         }
         if (halftowrite==1)
         {
+            qDebug() << "Regular Write, 1st Half";
             extern QFile f;
             QDataStream out(&f);
             out.setByteOrder(QDataStream::LittleEndian); // *** set little endian byte order
@@ -71,6 +73,7 @@ void WriteDataThread::writedata(int halftowrite,bool stopwriting, long memory_lo
 
         if (halftowrite==2)
         {
+            qDebug() << "Final Write, 2nd Half";
             extern QFile f;
             QDataStream out(&f);
             out.setByteOrder(QDataStream::LittleEndian);
@@ -84,6 +87,7 @@ void WriteDataThread::writedata(int halftowrite,bool stopwriting, long memory_lo
         }
         if (halftowrite==1)
         {
+            qDebug() << "Final Write, 1st Half";
             extern QFile f;
             QDataStream out(&f);
             out.setByteOrder(QDataStream::LittleEndian); // *** set little endian byte order
