@@ -97,7 +97,7 @@ void SamplingThread::flush_data()
 
 void SamplingThread::sample( double elapsed )
 {
-    qDebug() << "SampleFired";
+    //qDebug() << "SampleFired";
 //    const QPointF s( elapsed, 1 );
 //    SignalData::instance().append( s );
     long CurCount = 10;
@@ -121,9 +121,9 @@ void SamplingThread::sample( double elapsed )
     if (CurCount < rounder)
         PlotStarted = false;
 
-    qDebug() << CurCount;
-    qDebug() << PlotStarted;
-    qDebug() << triggerchecked;
+    //qDebug() << CurCount;
+    //qDebug() << PlotStarted;
+    //qDebug() << triggerchecked;
     if ((CurCount>(rounder)) && (triggerchecked==true) && PlotStarted==false)
     {
         //qDebug() << "StartPlotting";
@@ -144,7 +144,7 @@ void SamplingThread::sample( double elapsed )
         starttime=elapsed;
     if ((Status == RUNNING) && CurCount > 20 )
     {
-        qDebug() << "Writing data files";
+        //qDebug() << "Sending Data To Plot";
         for (int chantrack=1; (chantrack <= channels); chantrack++)
         {
             elapsed = elapsed-starttime;
@@ -156,6 +156,7 @@ void SamplingThread::sample( double elapsed )
         }
     }
     extern int globalrecfreq;
+    //qDebug() << "Running/" << Status << " and True/"<< PlotStarted;
     if (Status==RUNNING && PlotStarted==true)
     {
         if (CurIndex < (channels*globalrecfreq))
@@ -166,7 +167,7 @@ void SamplingThread::sample( double elapsed )
                 WroteSecond = true;
             if (WroteSecond==false)
             {
-                //qDebug() << "writing 2";
+                qDebug() << "writing 2";
                 datathread.run(2,StopWriting,CurCount);
                 WroteSecond=true;
             }
@@ -179,7 +180,7 @@ void SamplingThread::sample( double elapsed )
                 WroteSecond = false;
             if (WroteFirst == false)
             {
-                //qDebug() << "writing 1";
+                qDebug() << "writing 1";
                 datathread.run(1,StopWriting,CurCount);
 
                 WroteFirst=true;
