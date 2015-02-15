@@ -7,6 +7,7 @@
 #include <qwt_plot.h>
 #include "cbw.h"
 #include <QSlider>
+#include <QPushButton>
 
 class Plot;
 
@@ -67,10 +68,27 @@ private slots:
 
     void write_text_file();
 
+    void on_chan1Color_clicked();
+
+    void on_chan2Color_clicked();
+
+    void on_chan3Color_clicked();
+
+    void on_chan4Color_clicked();
+
+    void on_chan5Color_clicked();
+
+    void on_chan6Color_clicked();
+
+    void on_chan7Color_clicked();
+
+    void on_chan8Color_clicked();
+
 private:
     Ui::MainWindow *ui;
     void loadSettings();
     void modifyenabledchans(int chansvisible);
+    void setChanColor(QPushButton *chanColor, int chanNum);
     void closeEvent(QCloseEvent *bar);
     void clearLayout(QLayout *layout);
     QTimer *timer;

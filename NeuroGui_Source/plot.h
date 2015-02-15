@@ -32,6 +32,7 @@ protected:
 private:
     void updateCurve();
     void incrementInterval();
+    void customizeCurve(QwtPlotCurve *d_curve, int curveNum);
 
     QwtPlotMarker *d_origin;
     QwtPlotCurve *d_curve1;
