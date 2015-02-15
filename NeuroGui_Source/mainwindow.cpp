@@ -19,8 +19,6 @@
 #include <QFile>
 #include <QDateTime>
 #include <QSlider>
-#include <QColorDialog>
-#include <QVector>
 
 WORD *ADData;
 DWORD *ADData32;
@@ -33,7 +31,6 @@ SamplingThread  samplingThread;
 bool triggerchecked;
 bool StartPlot;
 int blocks_stored;
-QVector<QColor> chanColors(8);
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
 
@@ -46,27 +43,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     ui->chan6name->setEnabled(false);
     ui->chan7name->setEnabled(false);
     ui->chan8name->setEnabled(false);
-    QColor color = Qt::white;
-    QString qss = QString("background-color: %1").arg(color.name());
-    ui->chan1Color->setStyleSheet(qss);
-    ui->chan2Color->setStyleSheet(qss);
-    ui->chan3Color->setStyleSheet(qss);
-    ui->chan4Color->setStyleSheet(qss);
-    ui->chan5Color->setStyleSheet(qss);
-    ui->chan6Color->setStyleSheet(qss);
-    ui->chan7Color->setStyleSheet(qss);
-    ui->chan8Color->setStyleSheet(qss);
-    for(int i = 0; i < chanColors.size(); i++) {
-        chanColors[i] = color;
-    }
-    ui->chan1Color->setEnabled(false);
-    ui->chan2Color->setEnabled(false);
-    ui->chan3Color->setEnabled(false);
-    ui->chan4Color->setEnabled(false);
-    ui->chan5Color->setEnabled(false);
-    ui->chan6Color->setEnabled(false);
-    ui->chan7Color->setEnabled(false);
-    ui->chan8Color->setEnabled(false);
     loadSettings();
     StartPlot=false;
     PlotStarted_mainwindow=false;
@@ -548,75 +524,108 @@ void MainWindow::loadSettings()
 
 void MainWindow::modifyenabledchans(int chansvisible)
 {
-    for(int i = 1; i <= chansvisible; i++) {
-        if(i == 1) {
-            ui->chan1name->setEnabled(true);
-            ui->chan1Color->setEnabled(true);
-        }
-        if(i == 2) {
-            ui->chan2name->setEnabled(true);
-            ui->chan2Color->setEnabled(true);
-        }
-        if(i == 3) {
-            ui->chan3name->setEnabled(true);
-            ui->chan3Color->setEnabled(true);
-        }
-        if(i == 4) {
-            ui->chan4name->setEnabled(true);
-            ui->chan4Color->setEnabled(true);
-        }
-        if(i == 5) {
-            ui->chan5name->setEnabled(true);
-            ui->chan5Color->setEnabled(true);
-        }
-        if(i == 6) {
-            ui->chan6name->setEnabled(true);
-            ui->chan6Color->setEnabled(true);
-        }
-        if(i == 7) {
-            ui->chan7name->setEnabled(true);
-            ui->chan7Color->setEnabled(true);
-        }
-        if(i == 8) {
-            ui->chan8name->setEnabled(true);
-            ui->chan8Color->setEnabled(true);
-        }
+    if (chansvisible==0)
+    {
+        ui->chan1name->setEnabled(false);
+        ui->chan2name->setEnabled(false);
+        ui->chan3name->setEnabled(false);
+        ui->chan4name->setEnabled(false);
+        ui->chan5name->setEnabled(false);
+        ui->chan6name->setEnabled(false);
+        ui->chan7name->setEnabled(false);
+        ui->chan8name->setEnabled(false);
     }
-    for(int i = chansvisible + 1; i <= 8; i++) {
-        if(i == 1) {
-            ui->chan1name->setEnabled(false);
-            ui->chan1Color->setEnabled(false);
-        }
-        if(i == 2) {
-            ui->chan2name->setEnabled(false);
-            ui->chan2Color->setEnabled(false);
-        }
-        if(i == 3) {
-            ui->chan3name->setEnabled(false);
-            ui->chan3Color->setEnabled(false);
-        }
-        if(i == 4) {
-            ui->chan4name->setEnabled(false);
-            ui->chan4Color->setEnabled(false);
-        }
-        if(i == 5) {
-            ui->chan5name->setEnabled(false);
-            ui->chan5Color->setEnabled(false);
-        }
-        if(i == 6) {
-            ui->chan6name->setEnabled(false);
-            ui->chan6Color->setEnabled(false);
-        }
-        if(i == 7) {
-            ui->chan7name->setEnabled(false);
-            ui->chan7Color->setEnabled(false);
-        }
-        if(i == 8) {
-            ui->chan8name->setEnabled(false);
-            ui->chan8Color->setEnabled(false);
-        }
+
+    if (chansvisible==1)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(false);
+        ui->chan3name->setEnabled(false);
+        ui->chan4name->setEnabled(false);
+        ui->chan5name->setEnabled(false);
+        ui->chan6name->setEnabled(false);
+        ui->chan7name->setEnabled(false);
+        ui->chan8name->setEnabled(false);
+    }
+    if (chansvisible==2)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(true);
+        ui->chan3name->setEnabled(false);
+        ui->chan4name->setEnabled(false);
+        ui->chan5name->setEnabled(false);
+        ui->chan6name->setEnabled(false);
+        ui->chan7name->setEnabled(false);
+        ui->chan8name->setEnabled(false);
+    }
+    if (chansvisible==3)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(true);
+        ui->chan3name->setEnabled(true);
+        ui->chan4name->setEnabled(false);
+        ui->chan5name->setEnabled(false);
+        ui->chan6name->setEnabled(false);
+        ui->chan7name->setEnabled(false);
+        ui->chan8name->setEnabled(false);
+    }
+    if (chansvisible==4)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(true);
+        ui->chan3name->setEnabled(true);
+        ui->chan4name->setEnabled(true);
+        ui->chan5name->setEnabled(false);
+        ui->chan6name->setEnabled(false);
+        ui->chan7name->setEnabled(false);
+        ui->chan8name->setEnabled(false);
+    }
+    if (chansvisible==5)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(true);
+        ui->chan3name->setEnabled(true);
+        ui->chan4name->setEnabled(true);
+        ui->chan5name->setEnabled(true);
+        ui->chan6name->setEnabled(false);
+        ui->chan7name->setEnabled(false);
+        ui->chan8name->setEnabled(false);
+    }
+    if (chansvisible==6)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(true);
+        ui->chan3name->setEnabled(true);
+        ui->chan4name->setEnabled(true);
+        ui->chan5name->setEnabled(true);
+        ui->chan6name->setEnabled(true);
+        ui->chan7name->setEnabled(false);
+        ui->chan8name->setEnabled(false);
+    }
+    if (chansvisible==7)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(true);
+        ui->chan3name->setEnabled(true);
+        ui->chan4name->setEnabled(true);
+        ui->chan5name->setEnabled(true);
+        ui->chan6name->setEnabled(true);
+        ui->chan7name->setEnabled(true);
+        ui->chan8name->setEnabled(false);
+    }
+    if (chansvisible==8)
+    {
+        ui->chan1name->setEnabled(true);
+        ui->chan2name->setEnabled(true);
+        ui->chan3name->setEnabled(true);
+        ui->chan4name->setEnabled(true);
+        ui->chan5name->setEnabled(true);
+        ui->chan6name->setEnabled(true);
+        ui->chan7name->setEnabled(true);
+        ui->chan8name->setEnabled(true);
     }
 }
+
 
 void MainWindow::on_stopButton_clicked()
 {
@@ -806,55 +815,5 @@ void MainWindow::on_trigger_duration_editingFinished()
     else
     {
         triggerduration=converted;
-    }
-}
-
-void MainWindow::on_chan1Color_clicked()
-{
-    setChanColor(ui->chan1Color, 1);
-}
-
-void MainWindow::on_chan2Color_clicked()
-{
-    setChanColor(ui->chan2Color, 2);
-}
-
-void MainWindow::on_chan3Color_clicked()
-{
-    setChanColor(ui->chan3Color, 3);
-}
-
-void MainWindow::on_chan4Color_clicked()
-{
-    setChanColor(ui->chan4Color, 4);
-}
-
-void MainWindow::on_chan5Color_clicked()
-{
-    setChanColor(ui->chan5Color, 5);
-}
-
-void MainWindow::on_chan6Color_clicked()
-{
-    setChanColor(ui->chan6Color, 6);
-}
-
-void MainWindow::on_chan7Color_clicked()
-{
-    setChanColor(ui->chan7Color, 7);
-}
-
-void MainWindow::on_chan8Color_clicked()
-{
-    setChanColor(ui->chan8Color, 8);
-}
-
-void MainWindow::setChanColor(QPushButton *chanColor, int chanNum)
-{
-    QColor color = QColorDialog::getColor(Qt::white, this);
-    if(color.isValid()) {
-        QString qss = QString("background-color: %1").arg(color.name());
-        chanColor->setStyleSheet(qss);
-        chanColors[chanNum - 1] = color;
     }
 }
