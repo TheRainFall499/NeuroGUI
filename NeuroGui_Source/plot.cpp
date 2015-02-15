@@ -198,72 +198,39 @@ void Plot::start()
 
 void Plot::replot()
 {
-
     extern int channels;
-    if (channels >=1)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve1->data() );
-        data->values().lock(1);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(1);
+    if (channels >= 1) {
+        replotCurveData(d_curve1, 1);
     }
-    if (channels >=2)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve2->data() );
-        data->values().lock(2);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(2);
+    if (channels >= 2) {
+        replotCurveData(d_curve2, 2);
     }
-    if (channels >=3)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve3->data() );
-        data->values().lock(3);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(3);
+    if (channels >= 3) {
+        replotCurveData(d_curve3, 3);
     }
-    if (channels >=4)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve4->data() );
-        data->values().lock(4);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(4);
+    if (channels >= 4) {
+        replotCurveData(d_curve4, 4);
     }
-    if (channels >=5)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve5->data() );
-        data->values().lock(5);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(5);
+    if (channels >= 5) {
+        replotCurveData(d_curve5, 5);
     }
-    if (channels >=6)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve6->data() );
-        data->values().lock(6);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(6);
+    if (channels >= 6) {
+        replotCurveData(d_curve6, 6);
     }
-    if (channels >=7)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve7->data() );
-        data->values().lock(7);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(7);
+    if (channels >= 7) {
+        replotCurveData(d_curve7, 7);
     }
-    if (channels ==8)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve8->data() );
-        data->values().lock(8);
-        QwtPlot::replot();
-        d_paintedPoints = data->size();
-        data->values().unlock(8);
+    if (channels == 8) {
+        replotCurveData(d_curve8, 8);
     }
+}
+
+void Plot::replotCurveData(QwtPlotCurve *d_curve, int chanNum) {
+    CurveData *data = static_cast<CurveData *>( d_curve->data() );
+    data->values().lock(chanNum);
+    QwtPlot::replot();
+    d_paintedPoints = data->size();
+    data->values().unlock(chanNum);
 }
 
 void Plot::setIntervalLength( double interval )
@@ -281,248 +248,61 @@ void Plot::setIntervalLength( double interval )
 void Plot::updateCurve()
 {
     extern int channels;
-    if (channels >=1)
-    {
-        CurveData *data1 = static_cast<CurveData *>( d_curve1->data() );
-        data1->values().lock(1);
-        const int numPoints = data1->size();
-        if ( numPoints > d_paintedPoints )
-        {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve1->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve1->yAxis() );
-                QRectF br = qwtBoundingRect( *data1,d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve1, d_paintedPoints - 1, numPoints - 1 );
-            //printf("Curve1:%d\n",d_paintedPoints);
-            if (channels==1)
-                d_paintedPoints = numPoints;
-
-
-        }
-        data1->values().unlock(1);
+    if (channels >= 1) {
+        updateCurveData(d_curve1, 1);
     }
-    if (channels >=2)
+    if (channels >= 2) {
+        updateCurveData(d_curve2, 2);
+    }
+    if (channels >= 3) {
+        updateCurveData(d_curve3, 3);
+    }
+    if (channels >= 4) {
+        updateCurveData(d_curve4, 4);
+    }
+    if (channels >= 5) {
+        updateCurveData(d_curve5, 5);
+    }
+    if (channels >= 6) {
+        updateCurveData(d_curve6, 6);
+    }
+    if (channels >= 7) {
+        updateCurveData(d_curve7, 7);
+    }
+    if (channels == 8) {
+        updateCurveData(d_curve8, 8);
+    }
+}
+
+void Plot::updateCurveData(QwtPlotCurve *d_curve, int chanNum)
+{
+    extern int channels;
+    CurveData *data = static_cast<CurveData *>( d_curve->data() );
+    data->values().lock(chanNum);
+    const int numPoints = data->size();
+    if ( numPoints > d_paintedPoints )
     {
-        CurveData *data = static_cast<CurveData *>( d_curve2->data() );
-        data->values().lock(2);
-        const int numPoints = data->size();
-        if ( numPoints > d_paintedPoints )
+        const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
+        if ( doClip )
         {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve2->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve2->yAxis() );
-                QRectF br = qwtBoundingRect( *data, d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve2, d_paintedPoints - 1, numPoints - 1 );
-            //printf("Curve2:%d\n",d_paintedPoints);
-            if (channels==2)
+            /*
+                Depending on the platform setting a clip might be an important
+                performance issue. F.e. for Qt Embedded this reduces the
+                part of the backing store that has to be copied out - maybe
+                to an unaccelerated frame buffer device.
+            */
+            const QwtScaleMap xMap = canvasMap( d_curve->xAxis() );
+            const QwtScaleMap yMap = canvasMap( d_curve->yAxis() );
+            QRectF br = qwtBoundingRect( *data, d_paintedPoints - 1, numPoints - 1 );
+            const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
+            d_directPainter->setClipRegion( clipRect );
+        }
+        d_directPainter->drawSeries( d_curve, d_paintedPoints - 1, numPoints - 1 );
+        if (channels == chanNum) {
             d_paintedPoints = numPoints;
         }
-        data->values().unlock(2);
     }
-    //replot();
-    if (channels >=3)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve3->data() );
-        data->values().lock(3);
-        const int numPoints = data->size();
-        if ( numPoints > d_paintedPoints )
-        {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve3->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve3->yAxis() );
-                QRectF br = qwtBoundingRect( *data,
-                    d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve3,
-                d_paintedPoints - 1, numPoints - 1 );
-            if (channels==3)
-                d_paintedPoints = numPoints;
-        }
-        data->values().unlock(3);
-    }
-    if (channels >=4)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve4->data() );
-        data->values().lock(4);
-        const int numPoints = data->size();
-        if ( numPoints > d_paintedPoints )
-        {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve4->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve4->yAxis() );
-                QRectF br = qwtBoundingRect( *data,
-                    d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve4,
-                d_paintedPoints - 1, numPoints - 1 );
-            if (channels==4)
-            d_paintedPoints = numPoints;
-        }
-        data->values().unlock(4);
-    }
-    if (channels >=5)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve5->data() );
-        data->values().lock(5);
-        const int numPoints = data->size();
-        if ( numPoints > d_paintedPoints )
-        {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve5->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve5->yAxis() );
-                QRectF br = qwtBoundingRect( *data,
-                    d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve5,
-                d_paintedPoints - 1, numPoints - 1 );
-            if (channels==5)
-                d_paintedPoints = numPoints;
-        }
-        data->values().unlock(5);
-    }
-    if (channels >=6)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve6->data() );
-        data->values().lock(6);
-        const int numPoints = data->size();
-        if ( numPoints > d_paintedPoints )
-        {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve6->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve6->yAxis() );
-                QRectF br = qwtBoundingRect( *data,
-                    d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve6,
-                d_paintedPoints - 1, numPoints - 1 );
-            if (channels==6)
-                d_paintedPoints = numPoints;
-        }
-        data->values().unlock(6);
-    }
-    if (channels >=7)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve7->data() );
-        data->values().lock(7);
-        const int numPoints = data->size();
-        if ( numPoints > d_paintedPoints )
-        {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve7->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve7->yAxis() );
-                QRectF br = qwtBoundingRect( *data,
-                    d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve7,
-                d_paintedPoints - 1, numPoints - 1 );
-            if (channels==7)
-                d_paintedPoints = numPoints;
-        }
-        data->values().unlock(7);
-    }
-    if (channels ==8)
-    {
-        CurveData *data = static_cast<CurveData *>( d_curve8->data() );
-        data->values().lock(8);
-        const int numPoints = data->size();
-        if ( numPoints > d_paintedPoints )
-        {
-            const bool doClip = !canvas()->testAttribute( Qt::WA_PaintOnScreen );
-            if ( doClip )
-            {
-                /*
-                    Depending on the platform setting a clip might be an important
-                    performance issue. F.e. for Qt Embedded this reduces the
-                    part of the backing store that has to be copied out - maybe
-                    to an unaccelerated frame buffer device.
-                */
-                const QwtScaleMap xMap = canvasMap( d_curve8->xAxis() );
-                const QwtScaleMap yMap = canvasMap( d_curve8->yAxis() );
-                QRectF br = qwtBoundingRect( *data,
-                    d_paintedPoints - 1, numPoints - 1 );
-                const QRect clipRect = QwtScaleMap::transform( xMap, yMap, br ).toRect();
-                d_directPainter->setClipRegion( clipRect );
-            }
-            d_directPainter->drawSeries( d_curve8,
-                d_paintedPoints - 1, numPoints - 1 );
-            if (channels==8)
-                d_paintedPoints = numPoints;
-        }
-        data->values().unlock(8);
-    }
-
+    data->values().unlock(chanNum);
 }
 
 void Plot::incrementInterval()

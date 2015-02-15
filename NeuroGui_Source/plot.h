@@ -33,6 +33,8 @@ private:
     void updateCurve();
     void incrementInterval();
     void customizeCurve(QwtPlotCurve *d_curve, int curveNum);
+    void updateCurveData(QwtPlotCurve *d_curve, int chanNum);
+    void replotCurveData(QwtPlotCurve *d_curve, int chanNum);
 
     QwtPlotMarker *d_origin;
     QwtPlotCurve *d_curve1;
