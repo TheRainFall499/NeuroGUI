@@ -113,87 +113,58 @@ Plot::Plot( QWidget *parent ):
     if (channels >=1)
     {
         d_curve1 = new QwtPlotCurve();
-        d_curve1->setStyle( QwtPlotCurve::Lines );
-        d_curve1->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve1->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve1->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve1->setData( new CurveData(1) );
-        d_curve1->attach( this );
+        customizeCurve(d_curve1, 1);
     }
     if (channels >=2)
     {
         d_curve2 = new QwtPlotCurve();
-        d_curve2->setStyle( QwtPlotCurve::Lines );
-        d_curve2->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve2->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve2->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve2->setData( new CurveData(2) );
-        d_curve2->attach( this );
+        customizeCurve(d_curve2, 2);
     }
     if (channels >=3)
     {
         d_curve3 = new QwtPlotCurve();
-        d_curve3->setStyle( QwtPlotCurve::Lines );
-        d_curve3->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve3->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve3->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve3->setData( new CurveData(3) );
-        d_curve3->attach( this );
+        customizeCurve(d_curve3, 3);
     }
     if (channels >=4)
     {
         d_curve4 = new QwtPlotCurve();
-        d_curve4->setStyle( QwtPlotCurve::Lines );
-        d_curve4->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve4->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve4->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve4->setData( new CurveData(4) );
-        d_curve4->attach( this );
+        customizeCurve(d_curve4, 4);
     }
     if (channels >=5)
     {
         d_curve5 = new QwtPlotCurve();
-        d_curve5->setStyle( QwtPlotCurve::Lines );
-        d_curve5->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve5->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve5->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve5->setData( new CurveData(5) );
-        d_curve5->attach( this );
+        customizeCurve(d_curve5, 5);
     }
     if (channels >=6)
     {
         d_curve6 = new QwtPlotCurve();
-        d_curve6->setStyle( QwtPlotCurve::Lines );
-        d_curve6->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve6->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve6->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve6->setData( new CurveData(6) );
-        d_curve6->attach( this );
+        customizeCurve(d_curve6, 6);
     }
     if (channels >=7)
     {
         d_curve7 = new QwtPlotCurve();
-        d_curve7->setStyle( QwtPlotCurve::Lines );
-        d_curve7->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve7->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve7->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve7->setData( new CurveData(7) );
-        d_curve7->attach( this );
+        customizeCurve(d_curve7, 7);
     }
     if (channels ==8)
     {
         d_curve8 = new QwtPlotCurve();
-        d_curve8->setStyle( QwtPlotCurve::Lines );
-        d_curve8->setPen( canvas()->palette().color( QPalette::WindowText ) );
-        d_curve8->setRenderHint( QwtPlotItem::RenderAntialiased, true );
-        d_curve8->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
-        d_curve8->setData( new CurveData(8) );
-        d_curve8->attach( this );
+        customizeCurve(d_curve8, 8);
     }
 
     QwtPlotZoomer* d_zoomer = new QwtPlotZoomer(canvas(),true);
     d_zoomer->setRubberBandPen(QPen(Qt::red, 2, Qt::DotLine));
     d_zoomer->setTrackerPen(QPen(Qt::red));
+}
+
+void Plot::customizeCurve(QwtPlotCurve *d_curve, int curveNum) {
+    extern QVector<QColor> chanColors;
+    QColor color = chanColors[curveNum - 1];
+    d_curve->setStyle( QwtPlotCurve::Lines );
+    d_curve->setPen( *new QPen(color) );
+    d_curve->setRenderHint( QwtPlotItem::RenderAntialiased, true );
+    d_curve->setPaintAttribute( QwtPlotCurve::ClipPolygons, false );
+    d_curve->setData( new CurveData(curveNum) );
+    d_curve->attach( this );
 }
 
 Plot::~Plot()
