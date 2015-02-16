@@ -36,16 +36,7 @@ int blocks_stored;
 QVector<QColor> chanColors(8);
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
-    ui->chan1name->setEnabled(false);
-    ui->chan2name->setEnabled(false);
-    ui->chan3name->setEnabled(false);
-    ui->chan4name->setEnabled(false);
-    ui->chan5name->setEnabled(false);
-    ui->chan6name->setEnabled(false);
-    ui->chan7name->setEnabled(false);
-    ui->chan8name->setEnabled(false);
     QColor color = Qt::white;
     QString qss = QString("background-color: %1").arg(color.name());
     ui->chan1Color->setStyleSheet(qss);
@@ -59,14 +50,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     for(int i = 0; i < chanColors.size(); i++) {
         chanColors[i] = color;
     }
-    ui->chan1Color->setEnabled(false);
-    ui->chan2Color->setEnabled(false);
-    ui->chan3Color->setEnabled(false);
-    ui->chan4Color->setEnabled(false);
-    ui->chan5Color->setEnabled(false);
-    ui->chan6Color->setEnabled(false);
-    ui->chan7Color->setEnabled(false);
-    ui->chan8Color->setEnabled(false);
+    modifyenabledchans(0);
     loadSettings();
     StartPlot=false;
     PlotStarted_mainwindow=false;
