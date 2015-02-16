@@ -325,17 +325,17 @@ void MainWindow::on_startButton_clicked()
 //            checktimer.restart();
 //        }
 //            //printf("OIndex:%d",CurIndex);
-////        // check the current status of the background operation */
+//        // check the current status of the background operation */
 
-        if ((Status == RUNNING) && CurCount > 0)
-        {
+//        if ((Status == RUNNING) && CurCount > 0)
+//        {
 
 //          int ENG = cbToEngUnits(BoardNum,BIP5VOLTS,ADData[CurIndex],&EngUnits);
 //          double v_double=static_cast<double>(EngUnits);
 //            printf ("  Value: %d  ",v_double);
 //            emit dataValueChanged(*EngUnits);
 
-        }
+//        }
     }
 
 
