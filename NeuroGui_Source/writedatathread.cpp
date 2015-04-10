@@ -59,16 +59,14 @@ void WriteDataThread::writedata(int halftowrite,bool stopwriting, long memory_lo
     {
         int test=memory_location/Count;
 
-        int remainder=test%2;
-        if (remainder == 0)
+        int end_location=memory_location-(Count*test);
+        if (end_location < (channels*globalrecfreq))
         {
             halftowrite = 1;
-            end_location = memory_location - (Count*test);
         }
         else
         {
             halftowrite = 2;
-            end_location = memory_location - (Count*test) + (channels*globalrecfreq);
         }
 
         if (halftowrite==2)
@@ -80,6 +78,8 @@ void WriteDataThread::writedata(int halftowrite,bool stopwriting, long memory_lo
             for (int writedataloc=(channels*globalrecfreq); writedataloc < end_location; writedataloc++)
             {
                 qDebug() <<"2_"<< writedataloc;
+                if (writedataloc > end_location)
+                    qDebug() << "ERROR, writeloc > endloc";
                 int ENG = cbToEngUnits(BoardNum,BIP10VOLTS,ADData[writedataloc],&v);
                 double v_double=(double)v;
                 out << v_double;

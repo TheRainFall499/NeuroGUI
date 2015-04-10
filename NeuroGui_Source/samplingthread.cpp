@@ -145,6 +145,7 @@ void SamplingThread::sample( double elapsed )
     if ((Status == RUNNING) && CurCount > 20 )
     {
         //qDebug() << "Sending Data To Plot";
+
         for (int chantrack=1; (chantrack <= channels); chantrack++)
         {
             elapsed = elapsed-starttime;
@@ -153,7 +154,11 @@ void SamplingThread::sample( double elapsed )
             const QPointF s( elapsed, v_double );
             //printf("SendingPlotDataChan:%d\n",chantrack);
             SignalData::instance(chantrack).append( s, chantrack );
+
+
+
         }
+
     }
     extern int globalrecfreq;
     //qDebug() << "Running/" << Status << " and True/"<< PlotStarted;

@@ -159,17 +159,16 @@ void MainWindow::on_startButton_clicked()
     long CurCount;
     long CurIndex;
     long Rate = (long)globalrecordingfrequency;
-    Count = (HighChan+1)*globalrecordingfrequency*2;
-    int divisor=30+HighChan+1;
-    int remainder = Count % (divisor);
-    while (remainder != 0)
-    {
-        Count=Count+1;
-        remainder = Count % divisor;
-
-        //qDebug() << "Count:" << Count << "Remainder:" << remainder;
-
-    }
+    Count = ((HighChan+1)*globalrecordingfrequency*2)+(15*(HighChan+1));
+    qDebug() << 'Count:' << Count;
+//    int divisor=30+HighChan+1;
+//    int remainder = Count % (divisor);
+//    while (remainder != 0)
+//    {
+//        Count=Count+1;
+//        remainder = Count % divisor;
+//        //qDebug() << "Count:" << Count << "Remainder:" << remainder;
+//    }
     channels = globalchannelnumber;
     unsigned Options;
     float revision = (float)CURRENTREVNUM;
@@ -263,8 +262,10 @@ void MainWindow::on_startButton_clicked()
     }
     else
     {
+        //qDebug() << "Count:" << Count << "Remainder:" << remainder;
         Options = CONVERTDATA + BACKGROUND + CONTINUOUS;
         ULStat = cbAInScan (BoardNum, LowChan, HighChan, Count, &Rate, Gain, MemHandle, Options);
+        qDebug() << "Count:" << Count;
         samplingThread.settriggerplot(true);
         samplingThread.start();
         qDebug() << "SamplingThread Started";
